@@ -5,11 +5,13 @@ def isSafe(board, r, c, num):
     for i in range(9):
         if board[r][i] == num or board[i][c] == num:
             return False
-    row = r - r%3
-    col = c - c%3
-    for i in range(3):
-        for j in range(3):
-            if board[i+row][j+col] == num:
+    r1 = r - r%3
+    r2 = r1+3
+    c1 = c - c%3
+    c2 = c1+3
+    for i in range(r1,r2):
+        for j in range(c1,c2):
+            if board[i][j] == num:
                 return False
     return True
 
