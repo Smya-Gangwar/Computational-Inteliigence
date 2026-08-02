@@ -9,7 +9,7 @@ if __name__ == "__main__":
     print("SLP Logical XOR verification")
     for x1 in range(2):
         for x2 in range(2):
-            w1 = 0
+            w1 = 2
             w2 = -2
-            b = 0.5
+            b = -1.5
             print(f"x1={x1}, x2={x2} : {SLP(x1, x2, w1, w2, b)}")
