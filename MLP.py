@@ -8,8 +8,10 @@ def sigmoid_derivative(x):
 
 X = np.array([[0,0],[0,1],[1,0],[1,1]])
 Y = np.array([[0],[1],[1],[0]])
-learning_rate = 0.2
-epochs = 10000
+learning_rate = 0.5
+epochs = 20000
+
+convergence_threshold = 0.005
 
 # Initial weights and biases
 np.random.seed(42)
@@ -29,8 +31,14 @@ for epoch in range(epochs):
     # Error & Backpropogation
     error = Y - final_output
     MSE = np.mean(error**2)/2
-    delta_output = error * sigmoid_derivative(final_output)
 
+    if MSE < convergence_threshold:
+        print(f"\nTraining Converged!")
+        print(f"Epoch : {epoch}")
+        print(f"MSE : {MSE:.6f}")
+        break
+
+    delta_output = error * sigmoid_derivative(final_output)
     hidden_error = np.dot(delta_output, W2.T)
     delta_hidden = hidden_error * sigmoid_derivative(hidden_output)
 
@@ -59,7 +67,8 @@ print("\nOutput Layer Bias:")
 print(B2)
 
 print("\nPredictions:")
+hidden_output = sigmoid(np.dot(X, W1) + B1)
+final_output = sigmoid(np.dot(hidden_output, W2) + B2)
 for i in range(len(X)):
-    out = final_output[i][0]
-    pred = 1 if out >= 0.5 else 0
-    print(f"{X[i]} -> {out:.4f} -> {pred}")
+    pred = 1 if final_output[i][0] >= 0.5 else 0
+    print(f"{X[i]} -> {final_output[i][0]:.4f} -> {pred}")

@@ -7,7 +7,7 @@ def sigmoid_derivative(x):
     return x * (1 - x)
 
 X = np.array([[0,0],[0,1],[1,0],[1,1]])
-Y = np.array([[0],[1],[1],[1]])
+Y = np.array([[0],[0],[0],[1]])
 
 # Initial weights and bias
 np.random.seed(1)
