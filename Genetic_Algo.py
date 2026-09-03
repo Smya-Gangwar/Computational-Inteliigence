@@ -103,7 +103,6 @@ if __name__ == "__main__":
             chromosome1 = parents[parent1-1][0]
             chromosome2 = parents[parent2-1][0]
 
-            # Add boundaries
             points = [0] + crossover_points + [bits]
             offspring1 = ""
             offspring2 = ""
@@ -131,3 +130,37 @@ if __name__ == "__main__":
         print("Atleast 1 parent is required for MUTATION.")
     else:
         while choice.lower() == "y":
+            parent = int(input("Select Parent for Mutation : "))
+
+            while parent < 1 or parent > select_count:
+                print("Select valid parent!")
+                parent = int(input("Select Parent for Mutation : "))
+
+            chromosome = parents[parent-1][0]
+            mutation_point = int(input(f"Enter the mutation point for P{parent} (1 to {bits}) : "))
+
+            while mutation_point < 1 or mutation_point > bits:
+                print(f"Enter valid mutation point (1 to {bits})!")
+                mutation_point = int(input(f"Enter the mutation point for P{parent} (1 to {bits}) : "))
+
+            chromosome_list = list(chromosome)
+            index = mutation_point - 1
+
+            if chromosome_list[index] == "0":
+                chromosome_list[index] = "1"
+            else:
+                chromosome_list[index] = "0"
+
+            mutated_chromosome = "".join(chromosome_list)
+            offsprings.add(mutated_chromosome)
+
+            choice = input("Want to perform another mutation? (y/n) : ")
+
+    # STEP 7 (DISPLAY OFFSPRING)
+    print("\nFinal Offsprings:")
+    if offsprings:
+        for i, offspring in enumerate(offsprings, start=1):
+            print(f"Offspring {i} : {offspring}")
+    else:
+        print("No offspring generated.")
+
